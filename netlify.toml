@@ -1,4 +1,3 @@
 [build]
-base = "Frontend/HMS"
 publish = "dist"
 command = "npm run build"
