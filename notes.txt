@@ -1,0 +1,39 @@
+Then, Axios sends the response to the backend, i.e. to the server, with the data. 
+Server stores the data in the session. Then, session sends the session ID, i.e. the cookie, to the frontend.
+The browser stores the cookies. So, whenever the user requests for other pages, then the cookies are sent back to the server.
+So, if the session ID and the cookies are matched, that means the user is logged in, and if they are not matched, the user is not logged in. 
+So, that's why cookies are sent back to the server to check the user's ID, which was sent to the browser by the server when the user was logged. 
+So, if the ID got matched, the user is logged in on the other page also
+
+
+
+Yes! You are basically correct, and you explained it in the right sequence. Let me clarify and tidy it up a little so it’s crystal clear:
+User fills the signup form
+Inputs: full name, email, password.
+You capture these values using onChange and store them in state variables.
+User clicks “Sign Up” → handleSignup runs
+Sends the collected data (name, email, password) to the backend API (/signup) using Axios.
+withCredentials: true ensures the session cookie is sent back and forth so the server can recognize the user.
+Backend stores the user in session
+Session keeps track of who is logged in.
+Backend sends back the session ID as a cookie (like connect.sid) to the browser.
+Browser stores the cookie
+Every subsequent request from the browser will include this cookie automatically (because withCredentials: true).
+Server checks the session ID in this cookie to see if the user is still logged in.
+Get current user
+After signup (or on page refresh), you call /current-user to fetch the session data (user object) from the backend.
+This ensures the frontend knows exactly who is logged in and keeps the user “logged in” across pages.
+Store user in UserContext
+setUser(userRes.data.user) stores the user details globally.
+Now, any other component can access the current user without calling the backend again.
+✅ So yes, you understood it correctly!
+The cookie + session combination keeps the user logged in.
+The current user API ensures the frontend knows who the user is.
+UserContext makes it available everywhere in your React app.
+
+
+
+
+useLocation returns an object with details about the current page
+(URL path, query params, hash, navigation key) and also contains state, 
+which stores the object passed during navigation
