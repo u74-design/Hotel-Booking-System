@@ -1,5 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
 import express from 'express';
 import { MongoClient , ObjectId} from 'mongodb';
 import session from 'express-session';
@@ -29,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB
-const client = new MongoClient(process.env.MONGO_URI);
+const client = new MongoClient("mongodb://localhost:27017");
 await client.connect();
 const db = client.db("HMS");
 const usersCollection = db.collection("Users");
